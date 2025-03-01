@@ -27,16 +27,14 @@ const receiveSensorData = async (req, res) => {
             accelX, accelY, accelZ,
             roll, pitch, yaw,
             bmpTemp, pressure,
-            RTC_Time, Latitude, Longitude, Altitude,
-            batteryStatus  // Add battery status
+            RTC_Time, Latitude, Longitude, Altitude
         } = req.body;
 
         const newData = new SensorData({
             accelX, accelY, accelZ,
             roll, pitch, yaw,
             bmpTemp, pressure,
-            RTC_Time, Latitude, Longitude, Altitude,
-            batteryStatus  // Store battery status
+            RTC_Time, Latitude, Longitude, Altitude
         });
 
         await newData.save();
@@ -48,7 +46,6 @@ const receiveSensorData = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
-
 
 
 // Fetch the latest sensor data

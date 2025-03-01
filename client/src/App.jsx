@@ -1,30 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { io } from "socket.io-client";
-
-const socket = io("http://192.168.31.68:5000");
-
 function App() {
   const [sensorData, setSensorData] = useState(null);
 
-  // Fetch latest data when the component mounts
   useEffect(() => {
     const fetchLatestData = async () => {
       try {
-        const response = await fetch("http://192.168.31.68:5000/api/sensors");
+        const response = await fetch("https://websocket02-2.onrender.com/api/sensors");
         const data = await response.json();
         if (data.length > 0) {
-          setSensorData(data[0]); // Set the latest data
+          setSensorData(data[0]);
         }
       } catch (error) {
         console.error("Error fetching latest sensor data:", error);
       }
     };
 
-    fetchLatestData(); // Initial fetch
+    fetchLatestData();
 
     socket.on("updateSensorData", (data) => {
       console.log("Received Data from WebSocket:", data);
-      setSensorData(data); // Update state when new data arrives
+      setSensorData(data);
     });
 
     return () => {
@@ -49,6 +43,7 @@ function App() {
           <div className="text-gray-700"><strong>Accel X:</strong> {sensorData.accelX}</div>
           <div className="text-gray-700"><strong>Accel Y:</strong> {sensorData.accelY}</div>
           <div className="text-gray-700"><strong>Accel Z:</strong> {sensorData.accelZ}</div>
+          <div className="text-gray-700"><strong>Battery Status:</strong> {sensorData.batteryStatus} %</div> {/* Display battery status */}
         </div>
       ) : (
         <p className="text-gray-600">Loading latest sensor data...</p>
@@ -56,5 +51,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

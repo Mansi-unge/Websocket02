@@ -33,6 +33,7 @@ const getLatestSensorData = async (req, res) => {
   };
   
 
+  export { receiveSensorData, getLatestSensorData };
 
 // // /* Backend - controllers/sensorController.js */
 // // const SensorData = require("../models/SensorData");

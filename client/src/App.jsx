@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
       <h1 className="text-3xl font-bold text-blue-600 mb-6">Real-Time Sensor Data</h1>
-      {sensorData ? (
+      {/* {sensorData ? (
         <div className="grid grid-cols-2 gap-6 bg-white shadow-lg rounded-lg p-6 w-full max-w-3xl">
           <div className="text-gray-700"><strong>RTC Time:</strong> {new Date(sensorData.RTC_Time).toLocaleString()}</div>
           <div className="text-gray-700"><strong>Latitude:</strong> {sensorData.Latitude}</div>
@@ -53,7 +53,21 @@ function App() {
         </div>
       ) : (
         <p className="text-gray-600">Loading latest sensor data...</p>
-      )}
+      )} */}
+
+{sensorData ? (
+  <div className="grid grid-cols-2 gap-4 bg-white shadow-lg rounded-lg p-6 w-full max-w-3xl">
+    {Object.entries(sensorData).map(([key, value]) => (
+      <div key={key} className="text-gray-700">
+        <strong>{key}:</strong> {typeof value === "number" ? value.toFixed(2) : String(value)}
+      </div>
+    ))}
+  </div>
+) : (
+  <p className="text-gray-600">Loading latest sensor data...</p>
+)}
+
+
     </div>
   );
 }
